@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="icon" href="img/FeviconForSite.png" type="" sizes="16x16">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/animate1.css">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	
+	
+	<!-- footer Starts	-->
+<link rel="stylesheet" href="css/footer1.css">
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+<!-- footer ends-->
+	
+<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCsdP_eRVqXCj1b6pl1HchKOsBa9YPXBUg",
+    authDomain: "sih2018-c5f85.firebaseapp.com",
+    databaseURL: "https://sih2018-c5f85.firebaseio.com",
+    projectId: "sih2018-c5f85",
+    storageBucket: "sih2018-c5f85.appspot.com",
+    messagingSenderId: "482251589"
+  };
+  firebase.initializeApp(config);
+</script>
+
+	<title>Hire A Worker</title>
+
+	<!--  -->
+
+	<style>
+      .bg{
+            background-color: yellow;
+            text-align: center;
+        }
+	</style>
+
+</head>
+
+<body>
+    
+    <div class="jumbotron text-center header">
+    <div class="col-md-2"><img src="img/logo1.png" alt="" class="animated infinite bounce img-circle"></div>
+     
+      <h1><strong>Hire A Worker</strong></h1> 
+      
+  </div>
+
+	<div class="container">
+	
+	<div class="row">
+       <div class="col-md-3 panel panel-heading bg"><strong>Detail Infromation About Contractor</strong></div>
+            <div class="col-md-4 panel panel-heading" style="display:none; color:red" id="contact_error"></div>
+          </div>
+	<br><br>
+<div class="col-md-6" >
+   Enter the City: <input type="text" id="city">
+   &nbsp;&nbsp;&nbsp;<button  class=" btn btn-danger" onclick="myFunction()">Search</button>
+       
+        </div>
+        <div class="col-md-6">
+            <button  class="btn btn-primary" onclick="location.href = 'GiveFeedBackAgency.html';"    >Click here to Give Feed Back to Agency </button>
+        </div>
+        
+        
+        
+        <br><br><br>
+   
+   <table style="width:100%" id="ex-table" border="5" text-align="center" class="table table-striped">
+   <thead>
+  <tr >
+    <th> Name</th>
+    <th>Email</th>
+    <th>Phone</th> 
+    <th>Zip Code</th>
+    <th>No Of Labours</th>
+    <th>No of Skilled Labours</th>
+    <th>City/Village</th>
+    
+<!--    <th>City</th>-->
+   
+      
+      <script>
+//    function visitPage(){
+//        
+//        var city =  document.getElementById("city").value;
+//        
+//        window.location="https://www.google.co.in/maps/place/"+city;
+//    }
+</script>
+       
+      
+       
+      
+    <th>Address&nbsp;<button  class="btn btn-primary" id="cityprint" onclick="visitPage();" value="Davangere"   >Get Direction </button></th>
+    
+    
+    
+<!--
+    <th>District</th>
+    <th>Education</th>
+    
+    <th>Pincode</th> 
+    <th>Langauge</th>
+    <th>State</th>
+    <th>Village</th>
+    <th>Address</th>
+-->
+<!--    <th>education</th>-->
+<!--    <th>firstname</th>-->
+       </tr>
+       </thead>
+ </table> 
+
+<script>
+    var address;
+    function myFunction() {
+    var database = firebase.database().ref().child("AgencyRegistration");
+    database.on('value', function(snapshot){
+        if(snapshot.exists()){
+            var content = '';
+            snapshot.forEach(function(data){
+//                data.forEach(function(data1){
+                     console.log(data.key+': '+data.val());
+                var val = data.val();
+                var city = document.getElementById("city").value;
+                console.log(city);
+                if(city == val.city)
+                    {
+                address = val.address;
+                content +='<tr>';
+                
+                content += '<td>' + val.name + '</td>';
+                content += '<td>' + val.firstname + '</td>';
+                content += '<td>' + val.phone + '</td>';
+                content += '<td>' + val.zip + '</td>';
+                        content += '<td>' + val.noOfLabour + '</td>';
+                content += '<td>' + val.noOfSkilledLabour + '</td>';
+                        content += '<td>' + val.address + '</td>';
+                content += '<td>' + val.city + '</td>';
+                
+//                
+                
+//                content += '<td>' + val.selectedValue + '</td>';
+//                content += '<td>' + val.state + '</td>';
+//                content += '<td>' + val.village + '</td>';
+//                 content += '<td>' + val.address + '</td>';
+                
+                        
+                content += '</tr>';
+//            });
+                    }
+                else{
+                    alert("Address Not Found in the Database");
+                }
+                 });
+            $('#ex-table').append(content);
+        }
+    });
+         }
+    
+    function visitPage(){
+        
+//        var city =  document.getElementById("city").value;
+        
+        window.location="https://www.google.co.in/maps/place/"+address;
+    }
+</script>
+   
+   
+   
+    </div>
+    
+    
+     <div class="footer">
+      <div class="container">
+             <span>
+             <p class="text">© 2018 SIH, All rights reserved</p>
+              <a href='#'><i class="fa fa-twitch fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-facebook fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-twitter fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-youtube-play fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-rss fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-vine fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-flickr fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-linkedin fa-3x fa-fw"></i></a>
+            </span>
+      </div>
+    </div>
+
+<!--<script src="test.js"></script>-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<script>
+	</script>
+
+</body>
+
+</html>
